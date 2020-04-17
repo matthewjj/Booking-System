@@ -12,4 +12,16 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+   .sass('resources/sass/app.scss', 'public/css')
+   .scripts([
+        'node_modules/@fullcalendar/core/main.js',
+        'node_modules/@fullcalendar/daygrid/main.js',
+        'node_modules/@fullcalendar/timegrid/main.js',
+        'node_modules/@fullcalendar/interaction/main.js'
+    ], 'public/js/app.js')
+   .combine([
+        'node_modules/@fullcalendar/core/main.css',
+        'node_modules/@fullcalendar/daygrid/main.css',
+        'node_modules/@fullcalendar/timegrid/main.css',
+        'public/css/app.css'
+    ], 'public/css/app.css');

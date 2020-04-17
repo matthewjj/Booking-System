@@ -24,4 +24,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resources([
     'items' => 'Admin\ItemController',
+    'bookings' => 'BookingController',
 ]);

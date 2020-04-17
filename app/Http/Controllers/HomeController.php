@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Services\ItemService;
+use App\Http\Services\BookingService;
 
 class HomeController extends Controller
 {
@@ -13,11 +14,12 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct(ItemService $itemService)
+    public function __construct(ItemService $itemService, BookingService $bookingService)
     {
         $this->middleware('auth');
 
         $this->itemService = $itemService;
+        $this->bookingService = $bookingService;
     }
 
     /**
@@ -29,8 +31,10 @@ class HomeController extends Controller
     {
         $user = auth()->user();
 
-        $items = $this->itemService->byField('user_id', $user->id);
+        $items = $this->itemService->byField('user_id', $user->id)->results();
 
-        return view('home', compact('items'));
+        $bookings = $this->bookingService->byField('company_user_id', $user->id)->toJson(['title' => ['name', 'email', 'information'], 'start' => ['date'] ]);
+
+        return view('home', compact('items', 'bookings'));
     }
 }

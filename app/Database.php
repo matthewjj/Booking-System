@@ -49,9 +49,13 @@ class Database
 
 	public function byField($field, $value) 
 	{
-		$rows = $this->table::where($field, $value)->get();
+		$this->buildWhere(
+			[
+				$field => [['=', $value]] 
+			]
+		);
 
-		return $rows;
+		return $this->fire();
 	}
 
 	public function query($conditions) 
@@ -219,6 +223,28 @@ class Database
 
 		return DB::connection($this->connection)->select($sql, $params);
 
+	}
+
+	public function toJson($map) {
+
+		$newArray = [];
+		foreach($this->queryResults as $result) {
+
+			$innerArray = [];
+
+			foreach ($map as $jsonName => $sqlNames) {
+				$concatable = [];
+				foreach ($sqlNames as $sqlName) {
+					$concatable[] = $result->{$sqlName};
+
+				}
+
+				$innerArray[$jsonName] = implode(' ', $concatable);
+			}
+
+			$newArray[] = $innerArray;
+		}
+		return json_encode($newArray);
 	}
 
 	

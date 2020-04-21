@@ -189,15 +189,16 @@
             header: {
                 left: 'prev,next',
                 center: 'title',
-                right: 'dayGridDay,dayGridWeek,dayGridMonth'
+                right: 'listMonth'
             },
             dateClick: function() {
                 calendar.changeView('timeGridDay');
             },
-            plugins: [ 'dayGrid','interaction','timeGrid'],
+            plugins: [ 'dayGrid','interaction','timeGrid', 'timeGridPlugin', 'list'],
+            defaultView: 'listMonth',
             eventLimit: true, // allow "more" link when too many events
            
-            events: {!!$bookings!!},
+            events: {!!json_encode($bookingsArray)!!},
             
 
         });

@@ -3,12 +3,13 @@
 namespace App;
 
 use DB;
+use App\Http\Collections\Collection;
 
-class Database
+class Database extends Collection
 {
 	public $connection = 'mysql';
 
-	private $queryResults = null;
+	//private $queryResults = null;
 	public $where;
 	public $params = [];
 	
@@ -58,6 +59,19 @@ class Database
 		return $this->fire();
 	}
 
+	public function rowByField($field, $value) 
+	{
+		$this->buildWhere(
+			[
+				$field => [['=', $value]] 
+			]
+		);
+
+		$fire = $this->fire();
+
+		return isset($fire[0]) ? $fire[0] : null;
+	}
+
 	public function query($conditions) 
 	{
 
@@ -66,18 +80,17 @@ class Database
 		return $this->fire();
 	}
 
-	public function results() {
-		return $this->queryResults;
-	}
+	// 
 
-	public function byKey($key) 
-	{
-		$newArray = [];
-		foreach($this->queryResults as $result) {
-			$newArray[$result->{$key}] = $result;
-		}
-		return $newArray;
-	}
+
+	// public function byKey($key) 
+	// {
+	// 	$newArray = [];
+	// 	foreach($this->queryResults as $result) {
+	// 		$newArray[$result->{$key}] = $result;
+	// 	}
+	// 	return $newArray;
+	// }
 
 	private function buildWhere($where) 
 	{
@@ -208,9 +221,9 @@ class Database
 		//reset here ready for the next query
 		$this->resetQuery();
 
-		$this->queryResults = $fire;
+		//$this->queryResults = $fire;
 		
-		return $this;
+		return $this->map($fire);
 	}
 
 	public function resetQuery() {
@@ -225,27 +238,27 @@ class Database
 
 	}
 
-	public function toJson($map) {
+	// public function toJson($map) {
 
-		$newArray = [];
-		foreach($this->queryResults as $result) {
+	// 	$newArray = [];
+	// 	foreach($this->queryResults as $result) {
 
-			$innerArray = [];
+	// 		$innerArray = [];
 
-			foreach ($map as $jsonName => $sqlNames) {
-				$concatable = [];
-				foreach ($sqlNames as $sqlName) {
-					$concatable[] = $result->{$sqlName};
+	// 		foreach ($map as $jsonName => $sqlNames) {
+	// 			$concatable = [];
+	// 			foreach ($sqlNames as $sqlName) {
+	// 				$concatable[] = $result->{$sqlName};
 
-				}
+	// 			}
 
-				$innerArray[$jsonName] = implode(' ', $concatable);
-			}
+	// 			$innerArray[$jsonName] = implode(' ', $concatable);
+	// 		}
 
-			$newArray[] = $innerArray;
-		}
-		return json_encode($newArray);
-	}
+	// 		$newArray[] = $innerArray;
+	// 	}
+	// 	return json_encode($newArray);
+	// }
 
 	
 

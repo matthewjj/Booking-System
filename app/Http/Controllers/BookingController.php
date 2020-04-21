@@ -3,17 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Services\BookingService;
-use App\Http\Services\BookingItemSservice;
+use App\Http\Services\Bookings;
+use App\Http\Services\BookingItems;
+use App\Http\Services\Items;
+
 
 class BookingController extends Controller
 {
-    function __construct(BookingService $bookingService, BookingItemsService $bookingItemsService) {
+    function __construct(Bookings $bookings, BookingItems $bookingItems, Items $items) {
 
         $this->middleware('auth');
 
-        $this->bookingService = $bookingService;
-        $this->bookingItemsService = $bookingItemsService;
+        $this->bookings = $bookings;
+        $this->bookingItems = $bookingItems;
+        $this->items = $items;
     }
 
     /**
@@ -50,18 +53,22 @@ class BookingController extends Controller
         $fields = $request->get('booking');
         $fields['user_id'] = $user->id;
 
-        $booking = $this->bookingService->create($fields);
+        $booking = $this->bookings->create($fields);
 
-        if($request->has('items_quantity')) {
+        if($request->has('items')) {
 
             foreach ($request->get('items') as $id => $value) {
             
-                $this->bookingItemsService->create(
+                //find name of item for recording
+                $item = $this->items->rowByField('id', $id);
+
+                $this->bookingItems->create(
                     [
                         'item_id' => $id,
                         'quantity' => $request->has("items_quantity") && 
                             isset($request->get("items_quantity")[$id]) ? $request->get("items_quantity")[$id] : 0,
-                        'booking_id' => $booking->id
+                        'booking_id' => $booking->id,
+                        'recorded_name' => $item->name
                     ]
                 );
             }

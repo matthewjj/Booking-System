@@ -4,7 +4,7 @@ namespace App\Http\Services;
 
 use App\Database;
 
-class ItemService extends Database
+class Items extends Database
 {
 
 	public $sql = null;

@@ -4,15 +4,21 @@ namespace App\Http\Services;
 
 use App\Database;
 
-class BookingService extends Database
+use App\Http\Services\BookingItems;
+
+class Bookings extends Database
 {
 
 	public $sql = null;
+
+	//private 
 	
 	function __construct()
 	{
 		parent::__construct(new \App\Bookings());
 		$this->setQueryBase();
+		
+		$this->bookingItems = new BookingItems();
 	}
 
 	public function setQueryBase() 
@@ -27,6 +33,12 @@ class BookingService extends Database
 		//CUSTOMER CONFIMATION
 
 		return $this->store($fields);
+	}
+
+	public function items() {
+
+		return $this->bookingItems->byField('booking_id', $this->id);
+
 	}
 
 

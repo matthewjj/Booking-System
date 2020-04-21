@@ -5,16 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Http\Services\ItemService;
+use App\Http\Services\Items;
 
 class ItemController extends Controller
 {
 
-    function __construct(ItemService $itemService) {
+    function __construct(Items $items) {
 
         $this->middleware('auth');
 
-        $this->itemService = $itemService;
+        $this->items = $items;
     }
 
     /**
@@ -50,7 +50,7 @@ class ItemController extends Controller
         $fields = $request->get('item');
         $fields['user_id'] = $user->id;
 
-        $this->itemService->create($fields);
+        $this->items->create($fields);
 
         return \Redirect::back()->with('success-message', 'Item Added');
     }
@@ -99,15 +99,16 @@ class ItemController extends Controller
     {
         $user = auth()->user();
 
-        $itemExists = $this->itemService->query(
+        $itemExists = $this->items->query(
             [
                 'user_id' => [['=', $user->id]],
                 'id' => [['=', $id]],
             ]
-        )->results();
+        );
 
         if($itemExists) {
-            $this->itemService->delete($id);
+
+            $this->items->delete($id);
         
             return \Redirect::back()->with('success-message', 'Item Removed');
         }

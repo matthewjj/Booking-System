@@ -17,11 +17,13 @@ mix.js('resources/js/app.js', 'public/js')
         'node_modules/@fullcalendar/core/main.js',
         'node_modules/@fullcalendar/daygrid/main.js',
         'node_modules/@fullcalendar/timegrid/main.js',
-        'node_modules/@fullcalendar/interaction/main.js'
+        'node_modules/@fullcalendar/interaction/main.js',
+        'node_modules/@fullcalendar/list/main.js'
     ], 'public/js/app.js')
    .combine([
         'node_modules/@fullcalendar/core/main.css',
         'node_modules/@fullcalendar/daygrid/main.css',
         'node_modules/@fullcalendar/timegrid/main.css',
+        'node_modules/@fullcalendar/list/main.css',
         'public/css/app.css'
     ], 'public/css/app.css');

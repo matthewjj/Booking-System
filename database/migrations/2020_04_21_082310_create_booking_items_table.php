@@ -20,6 +20,7 @@ class CreateBookingItemsTable extends Migration
             $table->integer('booking_id');
             $table->integer('item_id');
             $table->integer('quantity');
+            $table->string('recorded_name', 500);
 
             $table->index('booking_id');
             $table->index('item_id');

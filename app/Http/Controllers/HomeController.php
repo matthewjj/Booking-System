@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Services\ItemService;
-use App\Http\Services\BookingService;
+use App\Http\Services\Items;
+use App\Http\Services\Bookings;
 
 class HomeController extends Controller
 {
@@ -14,12 +14,12 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct(ItemService $itemService, BookingService $bookingService)
+    public function __construct(Items $items, Bookings $bookings)
     {
         $this->middleware('auth');
 
-        $this->itemService = $itemService;
-        $this->bookingService = $bookingService;
+        $this->items = $items;
+        $this->bookings = $bookings;
     }
 
     /**
@@ -31,10 +31,27 @@ class HomeController extends Controller
     {
         $user = auth()->user();
 
-        $items = $this->itemService->byField('user_id', $user->id)->results();
+        $items = $this->items->byField('user_id', $user->id);
 
-        $bookings = $this->bookingService->byField('company_user_id', $user->id)->toJson(['title' => ['name', 'email', 'information'], 'start' => ['date'] ]);
+        $bookings = $this->bookings->byField('company_user_id', $user->id);
 
-        return view('home', compact('items', 'bookings'));
+        foreach ($bookings as $booking) {
+            $itemsMap = [];
+
+            if($booking->items()) {
+                
+                foreach($booking->items() as $item) {
+                    $itemsMap[] = "{$item->recorded_name} * {$item->quantity}";
+                }
+            
+            }
+        
+            $bookingsArray[] = [
+                'title' => "{$booking->name}  {$booking->email}  {$booking->information}" . ($itemsMap ? ' *Items* '. implode(", ", $itemsMap) : ''), 
+                'start' => $booking->date
+            ];
+        }
+
+        return view('home', compact('items', 'bookingsArray'));
     }
 }

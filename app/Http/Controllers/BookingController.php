@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Services\BookingService;
+use App\Http\Services\BookingItemSservice;
 
 class BookingController extends Controller
 {
-    function __construct(BookingService $bookingService) {
+    function __construct(BookingService $bookingService, BookingItemsService $bookingItemsService) {
 
         $this->middleware('auth');
 
         $this->bookingService = $bookingService;
+        $this->bookingItemsService = $bookingItemsService;
     }
 
     /**
@@ -44,10 +46,27 @@ class BookingController extends Controller
     {
         $user = auth()->user();
 
+
         $fields = $request->get('booking');
         $fields['user_id'] = $user->id;
 
-        $this->bookingService->create($fields);
+        $booking = $this->bookingService->create($fields);
+
+        if($request->has('items_quantity')) {
+
+            foreach ($request->get('items') as $id => $value) {
+            
+                $this->bookingItemsService->create(
+                    [
+                        'item_id' => $id,
+                        'quantity' => $request->has("items_quantity") && 
+                            isset($request->get("items_quantity")[$id]) ? $request->get("items_quantity")[$id] : 0,
+                        'booking_id' => $booking->id
+                    ]
+                );
+            }
+        
+        }
 
         return \Redirect::back()->with('success-message', 'Booking Added');
     }

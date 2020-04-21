@@ -4,29 +4,26 @@ namespace App\Http\Services;
 
 use App\Database;
 
-class BookingService extends Database
+class BookingItemsService extends Database
 {
 
 	public $sql = null;
 	
 	function __construct()
 	{
-		parent::__construct(new \App\Bookings());
+		parent::__construct(new \App\BookingItems());
 		$this->setQueryBase();
 	}
 
 	public function setQueryBase() 
 	{
-		$this->sql = "SELECT * FROM bookings";
+		$this->sql = "SELECT * FROM booking_items";
 	}
 
 	public function create($fields) 
 	{
-		//TODO
-		//ALERT COMPANY
-		//CUSTOMER CONFIMATION
 
-		return $this->store($fields);
+		$this->store($fields);
 	}
 
 

@@ -88,6 +88,24 @@
                         @csrf
                         <input type="hidden" name="booking[company_user_id]" value="{{ Auth::user()->id }}"/>
 
+
+                        <div class="form-group row">
+
+                        @foreach($items as $item)
+                            <div class="row col-md-12" >
+                                <label for="item" class="col-md-4 col-form-label text-md-right">{{$item->name}}</label>
+                                <div class="col-md-2">
+                                    <input type="checkbox" name="items[{{$item->id}}]" value="1" />
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text "name="items_quantity[{{$item->id}}]" />
+                                </div>
+                            </div>
+                        @endforeach
+
+                        </div>
+                        <hr/>
+
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Date') }}</label>
 

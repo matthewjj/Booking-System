@@ -68,7 +68,7 @@ class RegisterController extends Controller
         $customerLink = null;
 
         if(isset($data['type']) && $data['type'] == 1) {
-            $customerLink = "/{$data['company_name']}" . '_' . time();
+            $customerLink = "{$data['company_name']}" . '_' . time();
         }
 
         return User::create([

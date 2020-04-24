@@ -19,8 +19,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
+
 Route::resources([
 	'home' => 'HomeController',
     'items' => 'Admin\ItemController',
+    'bookings/customer' => 'CustomerBookingController',
     'bookings' => 'BookingController',
 ]);

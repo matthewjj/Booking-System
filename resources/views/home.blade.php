@@ -14,10 +14,10 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Customer Calendar Link') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Customer Calendar Link (share with your customers)') }}</label>
 
                             <div class="col-md-6">
-                                <a href="/home/{{$user->customer_link}}">View</a>
+                                <a href="/bookings/customer/{{$user->customer_link}}">View</a>
                             </div>
                         </div>
                         

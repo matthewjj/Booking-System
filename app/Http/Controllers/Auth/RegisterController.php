@@ -29,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    //protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -41,6 +41,16 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+
+    protected function redirectTo()
+    {
+        /* generate URL dynamicaly */
+        $parentID = \Auth::user()->parent_id;
+        $parent = User::where('id', $parentID)->first();
+
+        return \Auth::user()->type == 1 ? RouteServiceProvider::HOME : '/bookings/customer/'. $parent->customer_link;
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -49,12 +59,24 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'company_name' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        if(isset($data['type']) && $data['type'] == 1) {
+            $fields = [
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'company_name' => ['required', 'string', 'max:255'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+            ];
+        }
+        else {
+             $fields = [
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+                'parent_id' => ['required', 'integer'],
+            ];
+        }
+
+        return Validator::make($data, $fields);
     }
 
     /**
@@ -75,7 +97,8 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'type' => $data['type'],
-            'company_name' => $data['company_name'],
+            'company_name' => isset($data['company_name']) ? $data['company_name'] : null,
+            'parent_id' => isset($data['parent_id']) ? $data['parent_id'] : null,
             'customer_link' => $customerLink,
             'password' => Hash::make($data['password']),
         ]);

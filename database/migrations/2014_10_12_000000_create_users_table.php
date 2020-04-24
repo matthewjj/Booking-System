@@ -25,8 +25,10 @@ class CreateUsersTable extends Migration
             $table->string('company_name', 225);
             $table->string('customer_link', 500);
             $table->intenger('type');
+            $table->intenger('parent_id');
 
             $table->index('type');
+            $table->index('parent_id');
 
             
         });

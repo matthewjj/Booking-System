@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.customer')
 
 @section('content')
 
@@ -9,11 +9,11 @@
             <div class="card">
                 <div class="card-header">Booking</div>
 
-
+                @if(Auth::check())
                 <div class="card-body">
                     <form method="POST" action="{{ route('bookings.store') }}">
                         @csrf
-                        <input type="hidden" name="booking[company_user_id]" value="{{ Auth::user()->id }}"/>
+                        <input type="hidden" name="booking[company_user_id]" value="{{ $parent->id }}"/>
 
 
                         <div class="form-group row">
@@ -94,7 +94,11 @@
                         </div>
                     </form>
                 </div>
-
+                @else
+                <div class="card-body">
+                    Please signup or login in order to process booking, 
+                </div>
+                @endif
               <!--   <div class="card-body">
                     <div id='calendar'></div>
                 </div> -->

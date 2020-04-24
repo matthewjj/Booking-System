@@ -64,34 +64,9 @@ class HomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($link)
+    public function show()
     {
-        $parent = $this->users->rowByField('customer_link', $link);
-
-
-        $items = $this->items->byField('user_id', $parent->id);
-
-        $bookings = $this->bookings->byField('company_user_id', $parent->id);
-
-        $bookingsArray = [];
-        foreach ($bookings as $booking) {
-            $itemsMap = [];
-
-            if($booking->items()) {
-                
-                foreach($booking->items() as $item) {
-                    $itemsMap[] = "{$item->recorded_name} * {$item->quantity}";
-                }
-            
-            }
         
-            $bookingsArray[] = [
-                'title' => "{$booking->name}  {$booking->email}  {$booking->information}" . ($itemsMap ? ' *Items* '. implode(", ", $itemsMap) : ''), 
-                'start' => $booking->date
-            ];
-        }
-
-        return view('show', compact('items', 'bookingsArray'));
 
         
     }

@@ -3,6 +3,34 @@
 @section('content')
 
 <div class="container">
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Admin</div>
+
+                <div class="card-body">
+                    <div>
+                        @csrf
+
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Customer Calendar Link') }}</label>
+
+                            <div class="col-md-6">
+                                <a href="{{$user->customer_link}}">View</a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+             
+            </div>
+        </div>
+
+    </div>
+
+
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">

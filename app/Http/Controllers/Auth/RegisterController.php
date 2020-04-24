@@ -64,11 +64,19 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {
+    {   
+        $customerLink = null;
+
+        if(isset($data['type']) && $data['type'] == 1) {
+            $customerLink = "/{$data['company_name']}" . '_' . time();
+        }
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'type' => $data['type'],
             'company_name' => $data['company_name'],
+            'customer_link' => $customerLink,
             'password' => Hash::make($data['password']),
         ]);
     }

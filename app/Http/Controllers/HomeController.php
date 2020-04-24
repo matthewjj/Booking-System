@@ -35,6 +35,7 @@ class HomeController extends Controller
 
         $bookings = $this->bookings->byField('company_user_id', $user->id);
 
+        $bookingsArray = [];
         foreach ($bookings as $booking) {
             $itemsMap = [];
 
@@ -52,6 +53,6 @@ class HomeController extends Controller
             ];
         }
 
-        return view('home', compact('items', 'bookingsArray'));
+        return view('home', compact('items', 'bookingsArray', 'user'));
     }
 }

@@ -85,8 +85,12 @@ class ItemController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {   
+        $fields = $request->get('item');
+
+        $this->items->update($fields, $id);
+
+        return \Redirect::back()->with('success-message', 'Item Updated');
     }
 
     /**

@@ -17,7 +17,12 @@ class CreateItemsTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('user_id');
+            $table->integer('quantity', 0);
             $table->timestamps();
+
+            $table->index('user_id');
+
+
         });
     }
 

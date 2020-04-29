@@ -44,7 +44,7 @@ class HomeController extends Controller
             if($booking->items()) {
                 
                 foreach($booking->items() as $item) {
-                    $itemsMap[] = "{$item->recorded_name} * {$item->quantity}";
+                    $itemsMap[] = "{$item->recorded_name} x {$item->quantity}";
                 }
             
             }

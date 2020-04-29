@@ -32,6 +32,20 @@ class Database extends Collection
 		return $table;
 	}
 
+	public function update($fields, $id) 
+	{
+		$row = $this->table::where('id', $id)->first();
+
+		foreach ($fields as $field => $value) 
+		{
+			$row->{$field} = $value;
+
+		}
+		
+		$row->save();
+		return $row;
+	}
+
 	public function delete($id) 
 	{
 

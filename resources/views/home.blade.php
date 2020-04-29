@@ -52,10 +52,19 @@
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Item') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <input id="item" type="text" class="form-control @error('item[name]') is-invalid @enderror" name="item[name]" value="{{ old('item[name]') }}" required autocomplete="name" autofocus>
 
                                 @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-md-2">
+                                <input placeholder="1" id="quantity" type="number" class="form-control @error('item[quantity]') is-invalid @enderror" name="item[quantity]" value="1" required >
+
+                                @error('quantity')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -73,23 +82,45 @@
                 </div>
 
                 <div class="card-body">
-                    @foreach($items as $item)
-                        
+                    @foreach($items as $item)                           
 
-                        <form method="POST" action="{{ route('items.destroy', [$item->id]) }}">
-                            @csrf
-                            <input type="hidden" name="_method" value="delete" />
+                        <div class="row">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{$item->name}}</label>
 
-                            <div class="form-group row">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">{{$item->name}}</label>
+                            
 
-                                <div class="col-md-6">
+                            <div class="col-md-4">
+                                <form method="POST" action="{{ route('items.update', [$item->id]) }}">
+                                    @csrf
+                                    <input type="hidden" name="_method" value="patch" />
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input class="form-control" type="number" name="item[quantity]" value="{{$item->quantity}}" />
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="submit" class="btn btn-warning">
+                                                {{ __('Update') }}
+                                            </button>
+                                           
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="col-md-2">
+                                <form method="POST" action="{{ route('items.destroy', [$item->id]) }}">
+                                    @csrf
+                                    <input type="hidden" name="_method" value="delete" />
                                     <button type="submit" class="btn btn-danger">
                                         {{ __('Delete') }}
                                     </button>
-                                </div>
+                                </form>
                             </div>
-                        </form>
+                            
+                           
+
+                        </div>
+                        
                     @endforeach
                 </div>
             </div>
@@ -121,12 +152,12 @@
 
                         @foreach($items as $item)
                             <div class="row col-md-12" >
-                                <label for="item" class="col-md-4 col-form-label text-md-right">{{$item->name}}</label>
+                                <label for="item" class="col-md-4 col-form-label text-md-right">{{$item->name}} ({{$item->quantity}})</label>
                                 <div class="col-md-2">
                                     <input type="checkbox" name="items[{{$item->id}}]" value="1" />
                                 </div>
-                                <div class="col-md-4">
-                                    <input type="text "name="items_quantity[{{$item->id}}]" />
+                                <div class="col-md-2">
+                                    <input value="1" class="form-control" type="number" name="items_quantity[{{$item->id}}]" />
                                 </div>
                             </div>
                         @endforeach

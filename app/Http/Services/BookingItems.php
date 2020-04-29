@@ -28,6 +28,17 @@ class BookingItems extends Database
 	{
 
 		$this->store($fields);
+
+		//get item
+		$item = $this->items->rowByField('id', $fields['item_id']);
+
+		//decrement count by quantity used
+		$this->items->update(
+			[
+				'quantity' => $item->quantity - $fields['quantity']
+			], 
+			$item->id
+		);
 	}
 
 

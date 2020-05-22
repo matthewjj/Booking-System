@@ -22,10 +22,10 @@
                             <div class="row col-md-12" >
                                 <label for="item" class="col-md-4 col-form-label text-md-right">{{$item->name}}</label>
                                 <div class="col-md-2">
-                                    <input type="checkbox" name="items[{{$item->id}}]" value="1" />
+                                    <input type="checkbox" class="form-control" name="items[{{$item->id}}]" value="1" />
                                 </div>
-                                <div class="col-md-4">
-                                    <input type="text "name="items_quantity[{{$item->id}}]" />
+                                <div class="col-md-2">
+                                    <input type="number" class="form-control" name="items_quantity[{{$item->id}}]" placeholder="1" />
                                 </div>
                             </div>
                         @endforeach

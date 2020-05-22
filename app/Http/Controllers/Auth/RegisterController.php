@@ -48,7 +48,7 @@ class RegisterController extends Controller
         $parentID = \Auth::user()->parent_id;
         $parent = User::where('id', $parentID)->first();
 
-        return \Auth::user()->type == 1 ? RouteServiceProvider::HOME : '/bookings/customer/'. $parent->customer_link;
+        return \Auth::user()->type == 1 ? RouteServiceProvider::HOME : "/bookings/customer/{$parent->customer_link}";
     }
 
     /**

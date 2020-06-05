@@ -20,13 +20,21 @@
 
                         @foreach($items as $item)
                             <div class="row col-md-12" >
-                                <label for="item" class="col-4 col-form-label text-md-right">{{$item->name}}</label>
-                                <div class="col-2">
-                                    <input type="checkbox" name="items[{{$item->id}}]" value="1" />
+                                 
+                                <div class="col-4" style="text-align: right;">
+                                    <input type="checkbox"  name="items[{{$item->id}}]" value="1" style="margin-top: 10px;" />
+                                    
                                 </div>
-                                <div class="col-2">
+
+                                <div class="col-4">
+                                    <label for="item" class="col-form-label text-md-right">{{$item->name}}</label>
+                                </div>
+
+
+                                <div class="col-4">
                                     <input type="number" class="form-control" name="items_quantity[{{$item->id}}]" placeholder="1" />
                                 </div>
+                               
                             </div>
                         @endforeach
 
@@ -44,7 +52,7 @@
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Date') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <input id="bookingDate" type="datetime-local" class="form-control @error('booking[date]') is-invalid @enderror" name="booking[date]" value="{{ old('booking[date]') }}" required autofocus>
 
                                 @error('booking[date]')
@@ -59,7 +67,7 @@
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Info') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <textarea id="bookingInfo" class="form-control @error('booking[information]') is-invalid @enderror" name="booking[information]" value="{{ old('booking[information]') }}" autofocus></textarea>
 
                                 @error('booking[info]')
@@ -74,7 +82,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Add') }}
+                                    {{ __('Add Booking') }}
                                 </button>
                             </div>
                         </div>

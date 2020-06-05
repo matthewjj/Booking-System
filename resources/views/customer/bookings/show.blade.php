@@ -7,7 +7,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Booking <small><b>Place a Booking</b></small></div>
+                <div class="card-header">{{$parent->company_name}} <small><b>Place a Booking</b></small></div>
 
                
                 <div class="card-body">

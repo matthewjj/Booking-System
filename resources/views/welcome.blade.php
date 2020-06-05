@@ -10,6 +10,9 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
         <!-- Styles -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+        
         <style>
             html, body {
                 background-color: #fff;
@@ -46,6 +49,7 @@
 
             .title {
                 font-size: 84px;
+
             }
 
             .links > a {
@@ -61,14 +65,30 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            #mainImage {
+                background-image: url("images/Trees_1920x1234.png");
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+
+            }
+
+            .info-box {
+               
+                font-size: 14px;
+                text-align: center;
+                margin-top: 60px;
+                margin-bottom: 60px;
+            }
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
+        <div id="mainImage" class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/home') }}">Admin</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
@@ -79,22 +99,41 @@
                 </div>
             @endif
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Idabooks
-                </div>
+            <div class="row">
+                <div class="content">
+                    <div class="title m-b-md">
+                        Idabooks
+                    </div>
+                    <small>Accept and manage bookings online.</small>
 
-                <!-- <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div> -->
+                  
+
+                </div>
             </div>
+
+
         </div>
+
+        
+               
+                   
+            <div class="row">
+                <div class="col-md-4 info-box">
+                    Manage your item inventory.<br/>
+                    <i class="fa fa-address-book fa-4x" aria-hidden="true"></i>
+                </div>
+                <div class="col-md-4 info-box">
+                    Accept bookings.<br/>
+                    <i class="fa fa-book fa-4x" aria-hidden="true"></i>
+                </div>
+                <div class="col-md-4 info-box">
+                    Provide updates for your customers.<br/>
+                    <i class="fa fa-info fa-4x" aria-hidden="true"></i>
+                </div>
+               
+            </div>
+
+          
+        
     </body>
 </html>

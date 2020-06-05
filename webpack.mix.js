@@ -14,6 +14,7 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css')
    .scripts([
+        'public/js/app.js',
         'node_modules/@fullcalendar/core/main.js',
         'node_modules/@fullcalendar/daygrid/main.js',
         'node_modules/@fullcalendar/timegrid/main.js',
@@ -21,9 +22,9 @@ mix.js('resources/js/app.js', 'public/js')
         'node_modules/@fullcalendar/list/main.js'
     ], 'public/js/app.js')
    .combine([
+        'public/css/app.css',
         'node_modules/@fullcalendar/core/main.css',
         'node_modules/@fullcalendar/daygrid/main.css',
         'node_modules/@fullcalendar/timegrid/main.css',
         'node_modules/@fullcalendar/list/main.css',
-        'public/css/app.css'
     ], 'public/css/app.css');

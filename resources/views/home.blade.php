@@ -5,7 +5,7 @@
 <div class="container">
 
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-6 mt-4">
             <div class="card">
                 <div class="card-header">Admin</div>
 
@@ -14,7 +14,9 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Customer Calendar Link (share with your customers)') }}</label>
+                            <div class="col-md-6">
+                                <label for="name" class="col-form-label text-md-right">{{ __('Customer Calendar Link (share with your customers)') }}</label>
+                            </div>
 
                             <div class="col-md-6">
                                 <a href="/bookings/customer/{{$user->customer_link}}">View</a>
@@ -28,13 +30,10 @@
             </div>
         </div>
 
-    </div>
-
-
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    
+        <div class="col-md-6 mt-4">
             <div class="card">
-                <div class="card-header">Inventory</div>
+                <div class="card-header">Inventory <small><b>Manage Iventory</b></small></div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -46,14 +45,18 @@
                 </div>
 
                 <div class="card-body">
+                    <small><b>New Item</b></small>
                     <form method="POST" action="{{ route('items.store') }}">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Item') }}</label>
+
+                            <div class="col-md-2">
+                                <label for="name" class="col-form-label text-md-right">{{ __('Item') }}</label>
+                            </div>
 
                             <div class="col-md-4">
-                                <input id="item" type="text" class="form-control @error('item[name]') is-invalid @enderror" name="item[name]" value="{{ old('item[name]') }}" required autocomplete="name" autofocus>
+                                <input placeholder="Item Name" id="item" type="text" class="form-control @error('item[name]') is-invalid @enderror" name="item[name]" value="{{ old('item[name]') }}" required autocomplete="name" autofocus>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -61,6 +64,7 @@
                                     </span>
                                 @enderror
                             </div>
+
                             <div class="col-md-2">
                                 <input placeholder="1" id="quantity" type="number" class="form-control @error('item[quantity]') is-invalid @enderror" name="item[quantity]" value="1" required >
 
@@ -70,22 +74,32 @@
                                     </span>
                                 @enderror
                             </div>
-                        </div>
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
+
+                            <div class="col-md-2">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Add') }}
                                 </button>
                             </div>
+
                         </div>
+                        
                     </form>
                 </div>
 
+                <hr/>
+
+
                 <div class="card-body">
+                    <small><b>Current Items</b></small>
                     @foreach($items as $item)                           
 
                         <div class="row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{$item->name}}</label>
+
+                         
+
+                            <div class="col-md-2">
+                                <label for="name" class="col-form-label text-md-right">{{$item->name}}</label>
+                            </div>
 
                             
 
@@ -93,17 +107,22 @@
                                 <form method="POST" action="{{ route('items.update', [$item->id]) }}">
                                     @csrf
                                     <input type="hidden" name="_method" value="patch" />
+
                                     <div class="row">
-                                        <div class="col-md-4">
+
+                                        <div class="col-md-6">
                                             <input class="form-control" type="number" name="item[quantity]" value="{{$item->quantity}}" />
                                         </div>
-                                        <div class="col-md-2">
+
+                                        <div class="col-md-6">
                                             <button type="submit" class="btn btn-warning">
                                                 {{ __('Update') }}
                                             </button>
                                            
                                         </div>
+
                                     </div>
+
                                 </form>
                             </div>
 
@@ -128,10 +147,10 @@
 
     </div>
 
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Bookings</div>
+                <div class="card-header">Bookings <small><b>Manually Enter Booking</b></small></div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -143,6 +162,7 @@
                 </div>
 
                 <div class="card-body">
+                    <small><b>New Booking Items</b></small>
                     <form method="POST" action="{{ route('bookings.store') }}">
                         @csrf
                         <input type="hidden" name="booking[company_user_id]" value="{{ Auth::user()->id }}"/>
@@ -152,7 +172,9 @@
 
                         @foreach($items as $item)
                             <div class="row col-md-12" >
+
                                 <label for="item" class="col-md-4 col-form-label text-md-right">{{$item->name}} ({{$item->quantity}})</label>
+
                                 <div class="col-md-2">
                                     <input type="checkbox" name="items[{{$item->id}}]" value="1" />
                                 </div>
@@ -164,6 +186,8 @@
 
                         </div>
                         <hr/>
+
+                        <small><b>New Booking Info</b></small>
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Date') }}</label>

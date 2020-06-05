@@ -51,7 +51,11 @@ class BookingController extends Controller
 
 
         $fields = $request->get('booking');
+
+        //manual override these fields to ensure correct booking allocation
         $fields['user_id'] = $user->id;
+        $fields['company_user_id'] = $user->parent_id;
+        
 
         $booking = $this->bookings->create($fields);
 

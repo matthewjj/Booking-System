@@ -75,6 +75,7 @@
             }
 
             .info-box {
+               
                 font-size: 14px;
                 text-align: center;
                 margin-top: 60px;
@@ -86,13 +87,15 @@
         <div id="mainImage" class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/customer') }}">Home</a>
+                    @if(Auth::guard('company')->check())
+
+                        <a href="{{ url('/company/') }}">Admin</a>
+
                     @else
-                        <a href="{{ route('login') }}">Login</a>
+                        <a href="{{ route('company.login') }}">Login</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}?customer=1">Register</a>
+                            <a href="{{ route('company.register') }}">Register</a>
                         @endif
                     @endauth
                 </div>
@@ -103,19 +106,36 @@
                     <div class="title m-b-md">
                         Idabooks
                     </div>
-                    <small>Order items from from you local stores online.</small>
+                    <small>Accept and manage bookings online.</small>
+
+                  
+
                 </div>
             </div>
 
+
         </div>
+
+        
                    
         <div class="row">
 
-            <div class="col-md-12 info-box">
-                <h3>Are you a company? Register <a href="/business">here</a></h3>
+            <div class="col-md-4 info-box">
+                Manage your item inventory.<br/>
+                <i class="fa fa-address-book fa-4x" aria-hidden="true"></i>
+            </div>
+            <div class="col-md-4 info-box">
+                Accept bookings.<br/>
+                <i class="fa fa-book fa-4x" aria-hidden="true"></i>
+            </div>
+            <div class="col-md-4 info-box">
+                Provide updates for your customers.<br/>
+                <i class="fa fa-info fa-4x" aria-hidden="true"></i>
             </div>
            
         </div>
+
+          
         
     </body>
 </html>

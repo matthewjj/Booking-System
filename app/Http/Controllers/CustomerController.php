@@ -7,19 +7,17 @@ use Illuminate\Http\Request;
 use App\Http\Services\Items;
 use App\Http\Services\Bookings;
 use App\Http\Services\Users;
-use App\Http\Services\Companies;
 
-class CustomerBookingController extends Controller
+class CustomerController extends Controller
 {
 
-    public function __construct(Items $items, Bookings $bookings, Users $users, Companies $companies)
+    public function __construct(Items $items, Bookings $bookings, Users $users)
     {
-        //$this->middleware('guest');
+        $this->middleware('auth:web');
 
         $this->items = $items;
         $this->bookings = $bookings;
         $this->users = $users;
-        $this->companies = $companies;
     }
 
 
@@ -62,25 +60,7 @@ class CustomerBookingController extends Controller
      */
     public function show($link)
     {
-        $parent = $this->companies->rowByField('customer_link', $link);
-
        
-
-        $items = $this->items->byField('user_id', $parent->id);
-
-        $bookings = $this->bookings->byField('company_user_id', $parent->id);
-
-        $bookingsArray = [];
-        foreach ($bookings as $booking) {
-
-        
-            $bookingsArray[] = [
-                'title' => "", 
-                'start' => $booking->date
-            ];
-        }
-
-        return view('customer.bookings.show', compact('items', 'bookingsArray', 'parent'));
     }
 
     /**

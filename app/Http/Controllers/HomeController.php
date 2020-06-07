@@ -19,7 +19,7 @@ class HomeController extends Controller
      */
     public function __construct(Items $items, Bookings $bookings, Users $users)
     {
-        $this->middleware('auth');
+        $this->middleware('auth:company');
 
         $this->items = $items;
         $this->bookings = $bookings;
@@ -35,14 +35,14 @@ class HomeController extends Controller
     {
         $user = auth()->user();
 
-        //send customer to appropriate page
-        if($user->type == Constants::TYPE_CUSTOMER) {
+        // //send customer to appropriate page
+        // if($user->type == Constants::TYPE_CUSTOMER) {
 
-            $parent = $this->users->rowByField('id', $user->parent_id);
+        //     $parent = $this->users->rowByField('id', $user->parent_id);
 
-            return \Redirect::to("/bookings/customer/{$parent->customer_link}");
-        }
-
+        //     return \Redirect::to("/bookings/customer/{$parent->customer_link}");
+        // }
+        
         $items = $this->items->byField('user_id', $user->id);
 
         $bookings = $this->bookings->byField('company_user_id', $user->id);

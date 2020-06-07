@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,7 +12,7 @@ class ItemController extends Controller
 
     function __construct(Items $items) {
 
-        $this->middleware('auth');
+        $this->middleware('auth:company');
 
         $this->items = $items;
     }

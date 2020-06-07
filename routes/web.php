@@ -17,13 +17,27 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/business', function () {
+    return view('welcome-business');
+});
+
 Auth::routes();
+
+Route::prefix('company')->group(function() {
+	Route::get('/login', 'Auth\CompanyLoginController@showLoginForm')->name('company.login');
+	Route::post('/login', 'Auth\CompanyLoginController@login')->name('company.login.submit');
+	Route::get('/register', 'Auth\CompanyRegisterController@showRegisterForm')->name('company.register');
+	Route::post('/register', 'Auth\CompanyRegisterController@register')->name('company.register.submit');
+});
 
 
 
 Route::resources([
-	'home' => 'HomeController',
-    'items' => 'Admin\ItemController',
+	'company' => 'HomeController',
+	'customers' => 'CustomerController',
+    'items' => 'Company\ItemController',
     'bookings/customer' => 'CustomerBookingController',
     'bookings' => 'BookingController',
 ]);
+
+

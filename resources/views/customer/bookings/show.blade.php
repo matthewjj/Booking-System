@@ -21,7 +21,7 @@
                         @foreach($items as $item)
                             <div class="row col-md-12" >
                                  
-                                <div class="col-4" style="text-align: right;">
+                                <div class="col-4" style="text-align:right;">
                                     <input type="checkbox"  name="items[{{$item->id}}]" value="1" style="margin-top: 10px;" />
                                     
                                 </div>
@@ -32,7 +32,7 @@
 
 
                                 <div class="col-4">
-                                    <input type="number" class="form-control" name="items_quantity[{{$item->id}}]" placeholder="1" />
+                                    x<input style="width:50%;display: inline-block;" type="number" class="form-control" name="items_quantity[{{$item->id}}]" value="1" />
                                 </div>
                                
                             </div>

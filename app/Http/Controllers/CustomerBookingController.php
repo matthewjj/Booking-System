@@ -6,18 +6,20 @@ use Illuminate\Http\Request;
 
 use App\Http\Services\Items;
 use App\Http\Services\Bookings;
+use App\Http\Services\BookingItems;
 use App\Http\Services\Users;
 use App\Http\Services\Companies;
 
 class CustomerBookingController extends Controller
 {
 
-    public function __construct(Items $items, Bookings $bookings, Users $users, Companies $companies)
+    public function __construct(Items $items, Bookings $bookings, BookingItems $bookingItems, Users $users, Companies $companies)
     {
         //$this->middleware('guest');
 
         $this->items = $items;
         $this->bookings = $bookings;
+        $this->bookingItems = $bookingItems;
         $this->users = $users;
         $this->companies = $companies;
     }
@@ -51,7 +53,37 @@ class CustomerBookingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = auth()->user();
+
+
+        $fields = $request->get('booking');
+
+        //manual override these fields to ensure correct booking allocation
+        $fields['user_id'] = $user->id;  
+
+        $booking = $this->bookings->create($fields);
+
+        if($request->has('items')) {
+
+            foreach ($request->get('items') as $id => $value) {
+            
+                //find name of item for recording
+                $item = $this->items->rowByField('id', $id);
+
+                $this->bookingItems->create(
+                    [
+                        'item_id' => $id,
+                        'quantity' => $request->has("items_quantity") && 
+                            isset($request->get("items_quantity")[$id]) ? $request->get("items_quantity")[$id] : 0,
+                        'booking_id' => $booking->id,
+                        'recorded_name' => $item->name
+                    ]
+                );
+            }
+        
+        }
+
+        return \Redirect::back()->with('success-message', 'Booking Added');
     }
 
     /**

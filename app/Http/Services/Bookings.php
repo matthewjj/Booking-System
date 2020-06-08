@@ -23,7 +23,12 @@ class Bookings extends Database
 
 	public function setQueryBase() 
 	{
-		$this->sql = "SELECT * FROM bookings";
+		$this->sql = <<<SQL
+			SELECT b.*, c.company_name
+			FROM bookings b
+			JOIN companies c ON b.company_user_id = c.id 
+
+SQL;
 	}
 
 	public function create($fields) 

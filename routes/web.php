@@ -34,10 +34,11 @@ Route::prefix('company')->group(function() {
 
 Route::resources([
 	'company' => 'HomeController',
+	'company/bookings' => 'BookingController',
+	'company/items' => 'Company\ItemController',
 	'customers' => 'CustomerController',
-    'items' => 'Company\ItemController',
-    'bookings/customer' => 'CustomerBookingController',
-    'bookings' => 'BookingController',
+    'customer/bookings' => 'CustomerBookingController',
+    
 ]);
 
 

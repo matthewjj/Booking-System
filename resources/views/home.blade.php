@@ -19,7 +19,7 @@
                             </div>
 
                             <div class="col-md-6">
-                                <a href="/bookings/customer/{{$user->customer_link}}">View</a>
+                                <a href="/customer/bookings/{{$user->customer_link}}">View</a>
                             </div>
                         </div>
                         
@@ -163,7 +163,7 @@
 
                 <div class="card-body">
                     <small><b>New Booking Items</b></small>
-                    <form method="POST" action="{{ route('bookings.store') }}">
+                    <form method="POST" action="company/bookings">
                         @csrf
                         <input type="hidden" name="booking[company_user_id]" value="{{ Auth::user()->id }}"/>
 

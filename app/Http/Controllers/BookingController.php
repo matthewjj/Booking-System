@@ -12,7 +12,7 @@ class BookingController extends Controller
 {
     function __construct(Bookings $bookings, BookingItems $bookingItems, Items $items) {
 
-        $this->middleware('auth');
+        $this->middleware('auth:company');
 
         $this->bookings = $bookings;
         $this->bookingItems = $bookingItems;
@@ -53,9 +53,7 @@ class BookingController extends Controller
         $fields = $request->get('booking');
 
         //manual override these fields to ensure correct booking allocation
-        $fields['user_id'] = $user->id;
-        $fields['company_user_id'] = $user->parent_id;
-        
+        $fields['user_id'] = $fields['company_user_id'] = $user->id;  
 
         $booking = $this->bookings->create($fields);
 

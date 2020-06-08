@@ -28,7 +28,12 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+
+        $user = auth()->user();
+        
+        $bookings = $this->bookings->byField('user_id', $user->id);
+        
+        return view('customer.index', compact('bookings'));
     }
 
     /**

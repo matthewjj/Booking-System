@@ -12,7 +12,7 @@
                
                 <div class="card-body">
                     <small><b>Items</b></small>
-                    <form method="POST" action="{{ route('bookings.store') }}">
+                    <form method="POST" action="/customer/bookings">
                         @csrf
                        
                         

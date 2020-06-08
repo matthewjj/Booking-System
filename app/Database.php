@@ -35,7 +35,7 @@ class Database extends Collection
 	public function update($fields, $id) 
 	{
 		$row = $this->table::where('id', $id)->first();
-
+		
 		foreach ($fields as $field => $value) 
 		{
 			$row->{$field} = $value;

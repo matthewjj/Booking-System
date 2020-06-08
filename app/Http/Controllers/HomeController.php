@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Services\Items;
 use App\Http\Services\Bookings;
 use App\Http\Services\Users;
+use App\Http\Services\Companies;
 
 use App\Globals\Constants;
 
@@ -17,13 +18,15 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct(Items $items, Bookings $bookings, Users $users)
+    public function __construct(Items $items, Bookings $bookings, Users $users, Companies $companies)
     {
         $this->middleware('auth:company');
 
         $this->items = $items;
         $this->bookings = $bookings;
         $this->users = $users;
+        $this->companies = $companies;
+
     }
 
     /**
@@ -77,7 +80,17 @@ class HomeController extends Controller
     public function show()
     {
         
+    }
 
+
+    public function update(Request $request, $id)
+    {
+
+        $fields = $request->get('company');
+
+        $this->companies->update($fields, $id);
+
+        return \Redirect::back()->with('success-message', 'Item Updated');
         
     }
 

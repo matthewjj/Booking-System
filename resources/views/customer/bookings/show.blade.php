@@ -11,11 +11,29 @@
 
                
                 <div class="card-body">
+
+                    <small><b>Info</b></small>
+
+                    <div class="row">
+                        <div class="row col-md-12" >
+                            <div class="col-4">
+                                
+                            </div>
+                            <div class="col-4">
+                               {{$parent->customer_page_info}}
+                            </div>
+                            <div class="col-4">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr/>
+
                     <small><b>Items</b></small>
                     <form method="POST" action="/customer/bookings">
                         @csrf
                        
-                        
                         <div class="form-group row">
 
                         @foreach($items as $item)

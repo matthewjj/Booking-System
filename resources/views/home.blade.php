@@ -11,17 +11,42 @@
 
                 <div class="card-body">
                     <div>
-                        @csrf
+                        
 
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <label for="name" class="col-form-label text-md-right">{{ __('Customer Calendar Link (share with your customers)') }}</label>
+                        <form method="POST" action="{{ route('company.update', [$user->id]) }}">
+                            @csrf
+                            <input type="hidden" name="_method" value="patch" />
+
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label for="name" class="col-form-label text-md-right">{{ __('Customer Calendar Link (share with your customers)') }}</label>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <a href="/customer/bookings/{{$user->customer_link}}">View</a>
+                                </div>
                             </div>
 
-                            <div class="col-md-6">
-                                <a href="/customer/bookings/{{$user->customer_link}}">View</a>
+                            <hr/>
+
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label for="name" class="col-form-label text-md-right">{{ __('Booking Page Info') }}</label>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <textarea name="company[customer_page_info]">{{$user->customer_page_info}}</textarea>
+                                </div>
                             </div>
-                        </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-2">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __('Update') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                         
                     </div>
                 </div>

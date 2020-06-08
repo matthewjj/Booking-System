@@ -90,6 +90,7 @@ class CompanyRegisterController extends Controller
             'email' => $data['email'],
             'type' => $data['type'],
             'company_name' => isset($data['company_name']) ? $data['company_name'] : null,
+            'customer_link' => $customerLink,
             'password' => Hash::make($data['password']),
         ]);
     }

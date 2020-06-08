@@ -70,8 +70,7 @@ class RegisterController extends Controller
         $fields = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            //'parent_id' => ['required', 'integer'],
+            'password' => ['required', 'string', 'min:8', 'confirmed']
         ];
         
 
@@ -95,10 +94,6 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'type' => $data['type'],
-            'company_name' => isset($data['company_name']) ? $data['company_name'] : null,
-            
-            // 'customer_link' => $customerLink,
             'password' => Hash::make($data['password']),
         ]);
     }

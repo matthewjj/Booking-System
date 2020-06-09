@@ -45,15 +45,8 @@ class RegisterController extends Controller
 
     protected function redirectTo()
     {
-        /* generate URL dynamicaly */
-        $parentID = \Auth::user()->parent_id;
-        $parent = User::where('id', $parentID)->first();
     
-        if($parent && $parent->customer_link) {
-            return \Auth::user()->type == 1 ? RouteServiceProvider::HOME : "/bookings/customer/{$parent->customer_link}";
-        }
-
-        return \Auth::user()->type == 1 ? RouteServiceProvider::HOME : "/customers";
+        return "/customers";
 
         
     }
@@ -70,7 +63,8 @@ class RegisterController extends Controller
         $fields = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed']
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'telephone' => ['required', 'string', 'min:5']
         ];
         
 
@@ -85,15 +79,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {   
-        $customerLink = null;
-
-        if(isset($data['type']) && $data['type'] == 1) {
-            $customerLink = "{$data['company_name']}" . '_' . time();
-        }
-
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'telephone' => $data['telephone'],
             'password' => Hash::make($data['password']),
         ]);
     }

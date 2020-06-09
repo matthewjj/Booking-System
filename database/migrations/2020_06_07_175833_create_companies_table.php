@@ -25,6 +25,7 @@ class CreateCompaniesTable extends Migration
             $table->string('company_name', 225);
             $table->string('customer_link', 500);
             $table->text('customer_page_info')->default('Place a booking below');
+            $table->string('telephone', 20);
             
         });
     }

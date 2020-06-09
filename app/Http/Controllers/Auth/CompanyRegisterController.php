@@ -69,6 +69,7 @@ class CompanyRegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:companies'],
             'company_name' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'telephone' => ['required', 'string', 'min:5']
         ];
         
         return Validator::make($data, $fields);
@@ -88,7 +89,7 @@ class CompanyRegisterController extends Controller
         return Company::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'type' => $data['type'],
+            'telephone' => $data['telephone'],
             'company_name' => isset($data['company_name']) ? $data['company_name'] : null,
             'customer_link' => $customerLink,
             'password' => Hash::make($data['password']),

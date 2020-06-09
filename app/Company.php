@@ -18,7 +18,7 @@ class Company extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'company_name', 'type', 'customer_link', 'parent_id'
+        'name', 'email', 'password', 'company_name', 'type', 'customer_link', 'telephone'
     ];
 
     /**

@@ -35,7 +35,7 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <textarea name="company[customer_page_info]">{{$user->customer_page_info}}</textarea>
+                                    <textarea class="form-control" name="company[customer_page_info]">{{$user->customer_page_info}}</textarea>
                                 </div>
                             </div>
 
@@ -91,7 +91,7 @@
                             </div>
 
                             <div class="col-md-2">
-                                <input placeholder="1" id="quantity" type="number" class="form-control @error('item[quantity]') is-invalid @enderror" name="item[quantity]" value="1" required >
+                                <input id="quantity" type="number" class="form-control @error('item[quantity]') is-invalid @enderror" name="item[quantity]" value="1" required >
 
                                 @error('quantity')
                                     <span class="invalid-feedback" role="alert">

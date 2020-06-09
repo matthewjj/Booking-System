@@ -20,6 +20,7 @@ class CreateBookingsTable extends Migration
             $table->dateTime('date', 0);
             $table->string('name', 500);
             $table->string('email', 500)->nullable();
+            $table->string('telephone', 20);
             $table->text('information')->nullable();
             $table->integer('user_id');
             $table->integer('company_user_id');

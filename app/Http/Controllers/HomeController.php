@@ -63,7 +63,7 @@ class HomeController extends Controller
             }
         
             $bookingsArray[] = [
-                'title' => "{$booking->name}  {$booking->email}  {$booking->information}" . ($itemsMap ? ' *Items* '. implode(", ", $itemsMap) : ''), 
+                'title' => "{$booking->name}  {$booking->email} {$booking->telephone} {$booking->information}" . ($itemsMap ? ' *Items* '. implode(", ", $itemsMap) : ''), 
                 'start' => $booking->date
             ];
         }

@@ -65,6 +65,7 @@
                         @if(Auth::check())
                         <input type="hidden" name="booking[company_user_id]" value="{{ $parent->id }}"/>
                         <input type="hidden" name="booking[email]" value="{{ Auth::user()->email }}"/>
+                        <input type="hidden" name="booking[telephone]" value="{{ Auth::user()->telephone }}"/>
                         <input type="hidden" name="booking[name]" value="{{ Auth::user()->name }}"/>
 
                         <div class="form-group row">

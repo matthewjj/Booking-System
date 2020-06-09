@@ -254,6 +254,19 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Telephone') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="bookingTelephone" type="telephone" class="form-control @error('booking[telephone]') is-invalid @enderror" name="booking[telephone]" value="{{ old('booking[telephone]') }}" autofocus>
+
+                                @error('booking[email]')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Info') }}</label>
 
                             <div class="col-md-6">

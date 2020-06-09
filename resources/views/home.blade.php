@@ -60,15 +60,7 @@
             <div class="card">
                 <div class="card-header">Inventory <small><b>Manage Iventory</b></small></div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                </div>
-
+             
                 <div class="card-body">
                     <small><b>New Item</b></small>
                     <form method="POST" action="{{ route('items.store') }}">

@@ -39,8 +39,10 @@
                                 </div>
                             </div>
 
+                            <hr/>
+
                             <div class="form-group row">
-                                <div class="col-md-2">
+                                <div class="col-12 mt-4" style="text-align: right;">
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Update') }}
                                     </button>
@@ -68,11 +70,7 @@
 
                         <div class="form-group row">
 
-                            <div class="col-md-2">
-                                <label for="name" class="col-form-label text-md-right">{{ __('Item') }}</label>
-                            </div>
-
-                            <div class="col-md-4">
+                            <div class="col-8">
                                 <input placeholder="Item Name" id="item" type="text" class="form-control @error('item[name]') is-invalid @enderror" name="item[name]" value="{{ old('item[name]') }}" required autocomplete="name" autofocus>
 
                                 @error('name')
@@ -82,7 +80,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-2">
+                            <div class="col-4">
                                 <input id="quantity" type="number" class="form-control @error('item[quantity]') is-invalid @enderror" name="item[quantity]" value="1" required >
 
                                 @error('quantity')
@@ -92,7 +90,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-2">
+                            <div class="col-12 mt-4" style="text-align: right;">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Add') }}
                                 </button>
@@ -114,24 +112,24 @@
 
                          
 
-                            <div class="col-md-2">
+                            <div class="col-3">
                                 <label for="name" class="col-form-label text-md-right">{{$item->name}}</label>
                             </div>
 
                             
 
-                            <div class="col-md-4">
+                            <div class="col-6">
                                 <form method="POST" action="{{ route('items.update', [$item->id]) }}">
                                     @csrf
                                     <input type="hidden" name="_method" value="patch" />
 
                                     <div class="row">
 
-                                        <div class="col-md-6">
+                                        <div class="col-6">
                                             <input class="form-control" type="number" name="item[quantity]" value="{{$item->quantity}}" />
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div class="col-4">
                                             <button type="submit" class="btn btn-warning">
                                                 {{ __('Update') }}
                                             </button>
@@ -143,7 +141,7 @@
                                 </form>
                             </div>
 
-                            <div class="col-md-2">
+                            <div class="col-3">
                                 <form method="POST" action="{{ route('items.destroy', [$item->id]) }}">
                                     @csrf
                                     <input type="hidden" name="_method" value="delete" />
